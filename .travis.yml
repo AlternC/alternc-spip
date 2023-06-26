@@ -1,0 +1,50 @@
+language : bash
+env:
+    global:
+      - HUB_PROTOCOL=https
+      #GITHUB_TOKEN
+      - secure: "M017B4T3S7UaMRzlorrTkY8tYQYkDTBmStbIoqzZkIzhepsUh3qrinWu5pGvkId1CzRYwKJbxAo5HeBf+2abWRANpQ0yLMmhCqkD/xT+xZA6hKTsv2uBjtp8cwT9rx3WVuAPmQ7AOWMJts6Pp2HdEuwewzBRM4As/rlnd1Jiz1E/ELuGWuydr0kIYloKOuZpSvtYYdgm9Dncgw+z/vhUFv3gU2rAunX7a57K3APozk/K+vRK+zT4RWyG5qpxPOgGrrB9ES80UAruP5zCktbIKx5dZZ3q1GphCHRWndlhZCXCL9EqMmrKjSXDB3BVseIRnXE5Rwh1IBlPkq7zAiD+aG2/78NsD62KFNF4XkEH9VJxDdJopCDpeQ/1yXZapLOBgiqBZBbrhUrFZIrqvg/iT2PdKxWeWvDEvRnrxFdX3Cr1PmwaXCdk/5UXzno6Hzk8urwEd3hdq4g+JvF5IkQm1nyztdg7pYFlrrSaPxEUNFNcwGO/7Vf9NIZJFp6JYudT6Up5vvTHY/m4I9wYheouwDBpXdR5hsB6RQpd1Iue8vjoibEuzhSKf/krpDTE7fWcAPyVt7ZDAkITwe7gEVq7lO0f8wRb0ATy+cTQ3lN5uOeMZI9UFSZwdfIV3JuYlRmdrIwNJbAP5Xm2fJof8q0YkbfhguJTCgXU6oJAaEwG29o="
+branches:
+  except:
+  - nightly
+git:
+  quiet: true
+before_install:
+    - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+    - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    - sudo apt-get -qq update
+    - sudo apt-get install -y debhelper devscripts fakeroot build-essential po-debconf gh
+    - openssl aes-256-cbc -K $encrypted_efba3b7787e2_key -iv $encrypted_efba3b7787e2_iv -in 6D5E5753F12109663BABEED53087CD3324A99FBC.gpg.enc -out 6D5E5753F12109663BABEED53087CD3324A99FBC.gpg -d
+    - gpg --import 6D5E5753F12109663BABEED53087CD3324A99FBC.gpg
+install:
+    - debuild '-k3087CD3324A99FBC'
+deploy:
+    - provider: releases
+      skip_cleanup: true
+      file_glob: true
+      file: "../*.deb"
+      api_key:
+          secure: "krgaNL05/V0dJmz0XRsanWSOYq+zJW38t03DtMeB5WohvcMwQO6c3sYHVueYt2oErITcLsDY0IQAiW7j3V/MzMQMNwVoMkeFUk7aF7vbAioo2DBKrKfbu2UI6bPAoAtVXtihCtbxF3Ir2lD7l//vd3Qo0MWpu4f87ShyK4gyO7PIcp5KdP45a8bOSbOlxpFr1c97P/v5BhC0junJ+6efhfldhh/RTwyYSr425KLr6wBpCSN87rnkruefvVJn6ulr6uDITdPOCPEiWM2/8Rf+d0jRkoKRnNIDeZ79Lz+MnPaZYYM8hf+L/7912MnhV0j/DQ0Ch91gBEAfioEMK+HtOr2vkr2VAl8xyuTmFEWY9T49TrGAjCktbYNeJQ2/IL8Xj5BaoYy4FeprXrD80+EBNjdyF2jzi8CSrTSp6iLfTtiqBMRVrjGErotSM+kz9nkj9oPriQ+J5bT02bQo2xbsIv8VTVqELVv8y486xB+737cKr7NmXSjdPGExlu/8OS8arBzIyzdkXrVgiXWfBbnoCH5S3QvImKQyRJvjFa+VXyVcpNbGyNzCAFkMvHJNdlotfzyTdFlfuxyCEhkqYdA3/SY9fiOJtw29BFzyHkqE3UkOo5JFcfohUHsxos+PxMX9AACBfEafia5u/ZjlLb6i4T7yA8VLf7wu9JOW10UtBAM="
+      on:
+          tags: true
+    - provider: releases
+      skip_cleanup: true
+      file_glob: true
+      file: "../*.deb"
+      tag_name: "nightly"
+      prerelease: true
+      name: Automatic nightly build by Travis on $(date +'%F %T %Z').
+      target_commitish: $TRAVIS_COMMIT
+      api_key:
+          secure: "krgaNL05/V0dJmz0XRsanWSOYq+zJW38t03DtMeB5WohvcMwQO6c3sYHVueYt2oErITcLsDY0IQAiW7j3V/MzMQMNwVoMkeFUk7aF7vbAioo2DBKrKfbu2UI6bPAoAtVXtihCtbxF3Ir2lD7l//vd3Qo0MWpu4f87ShyK4gyO7PIcp5KdP45a8bOSbOlxpFr1c97P/v5BhC0junJ+6efhfldhh/RTwyYSr425KLr6wBpCSN87rnkruefvVJn6ulr6uDITdPOCPEiWM2/8Rf+d0jRkoKRnNIDeZ79Lz+MnPaZYYM8hf+L/7912MnhV0j/DQ0Ch91gBEAfioEMK+HtOr2vkr2VAl8xyuTmFEWY9T49TrGAjCktbYNeJQ2/IL8Xj5BaoYy4FeprXrD80+EBNjdyF2jzi8CSrTSp6iLfTtiqBMRVrjGErotSM+kz9nkj9oPriQ+J5bT02bQo2xbsIv8VTVqELVv8y486xB+737cKr7NmXSjdPGExlu/8OS8arBzIyzdkXrVgiXWfBbnoCH5S3QvImKQyRJvjFa+VXyVcpNbGyNzCAFkMvHJNdlotfzyTdFlfuxyCEhkqYdA3/SY9fiOJtw29BFzyHkqE3UkOo5JFcfohUHsxos+PxMX9AACBfEafia5u/ZjlLb6i4T7yA8VLf7wu9JOW10UtBAM="
+      on:
+          branch: main
+before_deploy:
+    - >
+      if [[ $TRAVIS_BRANCH == "main" ]]; then
+        gh release delete nightly -R ${TRAVIS_REPO_SLUG} -y
+        git tag -f nightly || true &&
+        git remote add gh https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git &&
+        git push --delete -f gh nightly || true &&
+        git push -f gh nightly || true
+      fi
