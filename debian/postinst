@@ -1,13 +1,35 @@
 #!/bin/bash -e
 
+function list_php_version() {
+    php_list=$(echo /usr/sbin/php-fpm* | fmt -1 | grep -oE '[0-9]+\.[0-9]+')
+
+	echo "$php_list"
+}
+
+function deploy_php_fpm_spip_ecran_secu() {
+	php_list=$(list_php_version)
+
+	for php_version in $php_list
+	do
+        cp -f /etc/alternc/templates/php/10-spip_ecran_secu.ini "/etc/php/${php_version}/fpm/conf.d/10-spip_ecran_secu.ini"
+    done
+}
+
 case "$1" in
     configure)
     printf "\tDownload last ecran secu version\n"
     wget -O /usr/share/php/spip/ecran_securite.php https://git.spip.net/spip-contrib-outils/securite/raw/branch/master/ecran_securite.php
     chmod 644 /usr/share/php/spip/ecran_securite.php
-	printf "\tEnabling ecran secu spip modules\n"
+	printf "\tEnabling ecran secu spip apache module and php-fpm\n"
 	a2enconf spip_ecran_secu
-	service apache2 restart
+    deploy_php_fpm_spip_ecran_secu
+	
+    printf "\tRestart service\n"
+    service apache2 restart
+	for php_version in $(list_php_version)
+	do
+        service "php${php_version}-fpm" restart
+    done
 	;;
 
 esac
