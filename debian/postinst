@@ -18,7 +18,7 @@ function deploy_php_fpm_spip_ecran_secu() {
 case "$1" in
     configure)
     printf "\tDownload last ecran secu version\n"
-    wget -O /usr/share/php/spip/ecran_securite.php https://git.spip.net/spip-contrib-outils/securite/raw/branch/master/ecran_securite.php
+    wget -qO /usr/share/php/spip/ecran_securite.php https://git.spip.net/spip-contrib-outils/securite/raw/branch/master/ecran_securite.php
     chmod 644 /usr/share/php/spip/ecran_securite.php
 	printf "\tEnabling ecran secu spip apache module and php-fpm\n"
 	a2enconf spip_ecran_secu
