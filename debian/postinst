@@ -6,7 +6,7 @@ case "$1" in
     wget -O /usr/share/php/spip/ecran_securite.php https://git.spip.net/spip-contrib-outils/securite/raw/branch/master/ecran_securite.php
     chmod 644 /usr/share/php/spip/ecran_securite.php
 	printf "\tEnabling ecran secu spip modules\n"
-	a2enmod spip_ecran_secu
+	a2enconf spip_ecran_secu
 	service apache2 restart
 	;;
 
