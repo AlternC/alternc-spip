@@ -1,3 +1,9 @@
+alternc-spip (0.0.3) stable; urgency=medium
+
+  * Provide a random daily cron to be updated
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 27 Jun 2023 17:50:21 +0200
+
 alternc-spip (0.0.2) stable; urgency=medium
 
   * Execute by default ecran_secu on all php instance (mod_apache and fpm)
