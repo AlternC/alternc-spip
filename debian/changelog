@@ -1,5 +1,12 @@
+alternc-spip (0.0.2) stable; urgency=medium
+
+  * Execute by default ecran_secu on all php instance (mod_apache and fpm)
+  * Provide a conditional option to disable on a specific vhost this feature SetEnv DISABLE_SPIP_ECRAN_SECU true
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 27 Jun 2023 16:43:20 +0200
+
 alternc-spip (0.0.1) stable; urgency=medium
 
   * Project initialization
  
- -- Camille Lafitte <alternc@webelys.com>  Tue, 20 Jun 2023 16:03:20 +0200
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 27 Jun 2023 09:03:20 +0200
