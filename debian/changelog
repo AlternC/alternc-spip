@@ -1,3 +1,10 @@
+alternc-spip (0.0.4) stable; urgency=medium
+
+  * Disable by default load check feature
+  * User can restore this behavior with SetEnv in htaccess file
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 20 Jul 2023 21:00:00 +0200
+
 alternc-spip (0.0.3) stable; urgency=medium
 
   * Provide a random daily cron to be updated
