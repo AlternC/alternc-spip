@@ -31,3 +31,8 @@ This package supports both Alternc 3.3 and 3.5. Could be install with any php ve
 This script deploy globaly ecran_securite.pihp from official repository at https://git.spip.net/spip-contrib-outils/securite/ . 
 You can disable specificly on a directory this protection you can do a ```SetEnv  DISABLE_SPIP_ECRAN_SECU true``` in your .htaccess  
 
+## Load check ##
+
+SPIP ecran securité provide a feature to check server load and return a 429 response. In alternc use case this behavior is not recommended. Then we disable this feature by default.
+User can restore it via  ```SetEnv  ENABLE_SPIP_ECRAN_SECURITE_LOAD true``` in your .htaccess  
+
