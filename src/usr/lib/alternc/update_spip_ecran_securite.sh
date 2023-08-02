@@ -2,9 +2,10 @@
 
 ecran_securite_file_path="/usr/share/php/spip/ecran_securite.php"
 
-ecran_securite_content_git=$(curl -sX 'GET' \
-  'https://git.spip.net/api/v1/repos/spip-contrib-outils/securite/contents/ecran_securite.php' \
-  -H 'accept: application/json')
+ecran_securite_content_git=$(wget -qO -\
+    --header='accept: application/json' \
+    'https://git.spip.net/api/v1/repos/spip-contrib-outils/securite/contents/ecran_securite.php'\
+)
 
 ecran_securite_content_sha=$( jq -r  '.sha' <<< "${ecran_securite_content_git}" )
 ecran_securite_content_size=$( jq -r  '.size' <<< "${ecran_securite_content_git}" )
