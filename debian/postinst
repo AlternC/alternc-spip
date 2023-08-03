@@ -17,18 +17,18 @@ function deploy_php_fpm_spip_ecran_secu() {
 
 case "$1" in
     configure)
-    printf "\tDownload last ecran secu version\n"
-    /usr/lib/alternc/update_spip_ecran_securite.sh
-	printf "\tEnabling ecran secu spip apache module and php-fpm\n"
-	a2enconf spip_ecran_secu
-    deploy_php_fpm_spip_ecran_secu
-	
-    printf "\tRestart service\n"
-    service apache2 restart
-	for php_version in $(list_php_version)
-	do
-        service "php${php_version}-fpm" restart
-    done
+        printf "\tDownload last ecran secu version\n"
+        /usr/lib/alternc/update_spip_ecran_securite.sh
+        printf "\tEnabling ecran secu spip apache module and php-fpm\n"
+        a2enconf spip_ecran_secu
+        deploy_php_fpm_spip_ecran_secu
+
+        printf "\tRestart service\n"
+        service apache2 restart
+        for php_version in $(list_php_version)
+        do
+            service "php${php_version}-fpm" restart
+        done
 	;;
 
 esac
