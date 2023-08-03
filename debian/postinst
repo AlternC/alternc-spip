@@ -35,6 +35,12 @@ case "$1" in
         restart_php_service
 	;;
 
+    triggered)
+        printf "\tEnabling ecran secu spip apache module and php-fpm\n"
+	    a2enconf spip_ecran_secu
+        deploy_php_fpm_spip_ecran_secu
+        restart_php_service
+    ;;
 esac
 
 # dh_installdeb will replace this with shell code automatically
