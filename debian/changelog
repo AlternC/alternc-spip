@@ -1,3 +1,9 @@
+alternc-spip (0.0.6) stable; urgency=medium
+
+  * Enable security on new php-fpm installationCheck daily update ecran_secu
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 3 Aug 2023 11:55:00 +0200
+
 alternc-spip (0.0.5) stable; urgency=medium
 
   * Check daily update ecran_secu
