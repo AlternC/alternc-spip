@@ -1,3 +1,10 @@
+alternc-spip (0.0.7) stretch buster; urgency=medium
+
+  * Follow change about debuild and debian.alternc.org requirement
+  * Trig once php packages change
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 16 Nov 2023 09:45:00 +0200
+
 alternc-spip (0.0.6) stable; urgency=medium
 
   * Enable security on new php-fpm installationCheck daily update ecran_secu
