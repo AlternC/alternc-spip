@@ -9,8 +9,9 @@ ecran_securite_content_git=$(wget -qO -\
 ecran_securite_content_sha=$( jq -r  '.content_sha256' <<< "${ecran_securite_content_git}" )
 ecran_securite_content_encoded=$( jq -r  '.content' <<< "${ecran_securite_content_git}" )
 ecran_securite_content_decoded=$(echo "${ecran_securite_content_encoded}" | base64 --decode - )
+ecran_securite_content_decoded_sha=$(echo -n "${ecran_securite_content_decoded}" | sha256sum | head -c 64)
 
-if [[ $( (echo -n "${ecran_securite_content_decoded}") | sha256sum | head -c 64) == "${ecran_securite_content_sha}" ]]; then
+if [[ "${ecran_securite_content_sha}" == "${ecran_securite_content_decoded_sha}" ]]; then
     echo -n "${ecran_securite_content_decoded}" > "${ecran_securite_file_path}"
     exit 0
 fi
