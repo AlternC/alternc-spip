@@ -1,3 +1,9 @@
+alternc-spip (0.0.9) stretch buster; urgency=medium
+
+  * Fix cron execution
+
+ -- Camille Lafitte <alternc@webelys.com>  Wed, 22 May 2024 15:01:00 +0200
+
 alternc-spip (0.0.8) stretch buster; urgency=medium
 
   * Follow forge change behavior, gitlab api is different
