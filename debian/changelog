@@ -1,3 +1,9 @@
+alternc-spip (0.1.0) buster bullseye bookworm; urgency=medium
+
+  * Move compatibility until bookworm
+
+ -- Camille Lafitte <alternc@webelys.com>  Thr, 06 Feb 2025 10:01:00 +0100
+
 alternc-spip (0.0.9) stretch buster; urgency=medium
 
   * Fix cron execution
